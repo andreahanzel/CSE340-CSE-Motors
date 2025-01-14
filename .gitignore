@@ -20,3 +20,6 @@ README.md
 
 # Ignore pnpm lock file
 pnpm-lock.yaml
+
+# Ignore database 
+.vscode/settings.json
