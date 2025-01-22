@@ -400,3 +400,23 @@ footer {
   color: #666;
   margin: 20px;
 }
+
+
+/* Error Page Styling */
+.error-page {
+  text-align: center;
+  padding: 50px;
+  color: #2B2B2B;
+  background-color: #f4f4f4;
+}
+
+.error-page h1 {
+  font-size: 48px;
+  color: #FF6347; 
+  text-align: center;
+}
+
+.error-page p {
+  font-size: 18px;
+  margin-top: 10px;
+}

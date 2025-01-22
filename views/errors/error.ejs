@@ -1,0 +1,12 @@
+<% if (title) { %>
+    <div class="error-page">
+      <h1><%= title %></h1>
+      <!-- Use JSON.stringify if message is an object -->
+      <% if (typeof message === 'object') { %>
+        <p><%= JSON.stringify(message) %></p>
+      <% } else { %>
+        <p><%= message %></p>
+      <% } %>
+      <p>Don't worry, even the best of us get lost sometimes! 😅</p>
+    </div>
+  <% } %>
