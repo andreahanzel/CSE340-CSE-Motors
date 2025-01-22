@@ -30,24 +30,25 @@ app.use(express.static(path.join(__dirname, "public")));
  * Routes
  *************************/
 // Updated the Index route to use the baseController method
-app.get("/", baseController.buildHome); // Changed this line to call the buildHome method
+app.get("/", utilities.handleErrors(baseController.buildHome))// Changed this line to call the buildHome method
 app.use(static);
 
 // Inventory routes
 app.use("/inv", inventoryRoute); // Added this line to use the inventoryRoute for "/inv" routes
 
 /* ***********************
- * Express Error Handler
- * Place after all other middleware
- *************************/
+* Express Error Handler
+* Place after all other middleware
+*************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav();
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  res.status(err.status || 500).render("errors/error", {
-    title: err.status ? `${err.status} Error` : 'Server Error',
-    message: err.message || 'Sorry, there was an error on our end.',
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
     nav
-  });
+  })
 });
 
 /* ***********************
