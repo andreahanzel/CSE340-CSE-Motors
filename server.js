@@ -55,7 +55,7 @@ app.use(async (err, req, res, next) => {
  * File Not Found Route - must be last route in list
  *************************/
 app.use(async (req, res, next) => {
-  let nav = await utilities.getNav();   // Add await here
+  let nav = await utilities.getNav();   // Added await here
   res.status(404).render("errors/error", {
     title: '404 Error',
     message: 'Sorry, we appear to have lost that page.',
@@ -66,12 +66,19 @@ app.use(async (req, res, next) => {
 /* ***********************
  * Local Server Information
  *************************/
-const port = process.env.PORT || 5500; // Use Render's PORT or fallback to 5500
-const host = process.env.HOST || "localhost"; // Use HOST or fallback to localhost
+const port = process.env.PORT || 5500; // Used Render's PORT or fallback to 5500
+const host = process.env.HOST || "localhost"; // Used HOST or fallback to localhost
 
 /* ***********************
  * Log statement to confirm server operation
  *************************/
-app.listen(port, () => {
-  console.log(`App listening on ${host}:${port}`);
-});
+console.log("Environment Variables:", process.env); // Added this line to log environment variables
+app.listen(port, host, (err) => {
+  // If there is an error, log it and exit
+  if (err) { 
+    console.error(`Error occurred: ${err.message}`);
+    process.exit(1); // Exit with code 1 on server error
+  } else { 
+    console.log(`Server running at http://${host}:${port}/`); 
+  } 
+}); // End of app.listen

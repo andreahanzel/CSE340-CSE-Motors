@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+    {
+        "name": "Launch CSE Motors",
+        "program": "${workspaceFolder}/server.js",
+        "request": "launch",
+        "skipFiles": ["<node_internals>/**"],
+        "type": "node",
+        "env": {
+          "PORT": "5500",          // Add the port explicitly
+          "HOST": "localhost",    // Add the host explicitly
+          "NODE_ENV": "development" // Set environment mode
+        }
+    }
+    ]
+}
