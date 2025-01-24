@@ -1,0 +1,30 @@
+<div class="vehicle-detail-header">
+    <h1><%= title %></h1>
+</div>
+
+<div class="vehicle-detail">
+    <!-- Image Section -->
+    <div class="vehicle-image">
+        <%- vehicleDisplay %>
+    </div>
+
+    <!-- Info Section -->
+    <div class="vehicle-info">
+        <!-- Highlighted Price -->
+        <div class="price-container">
+            <p class="price"><%= price %></p>
+        </div>
+
+        <!-- Other Vehicle Details -->
+        <h2><%= title %></h2>
+        <p><strong>Year:</strong> <%= year %></p>
+        <p><strong>Mileage:</strong> <%= mileage %></p>
+        <p><strong>Description:</strong> <%= description %></p>
+
+        <!-- Action Buttons -->
+        <div class="button-container">
+            <button>Contact Us</button>
+            <button>Schedule Test Drive</button>
+        </div>
+    </div>
+</div>

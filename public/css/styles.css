@@ -420,3 +420,159 @@ footer {
   font-size: 18px;
   margin-top: 10px;
 }
+
+/* Vehicle Detail Page Styling */
+.vehicle-detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f9; /* Light background for overall contrast */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-detail {
+  display: flex;
+  flex-direction: row; /* Two-column layout */
+  gap: 30px;
+  align-items: stretch; /* Ensures equal height for both columns */
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-detail:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
+
+/* Header Styling */
+.vehicle-detail-header {
+  margin-top: 20px; /* Add gap below the navigation bar */
+  margin-bottom: 20px; /* Keeps the spacing below the title */
+  margin-bottom: 20px;
+}
+
+.vehicle-detail-header h1 {
+  font-size: 32px;
+  color: #0056b3; /* Accent color for the title */
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.vehicle-detail-header p {
+  font-size: 16px;
+  color: #666;
+  margin-top: -5px; /* Compact spacing */
+}
+
+.vehicle-image {
+  flex: 1; /* Allow the image container to take up equal space */
+  display: flex;
+  align-items: center; /* Center the image vertically */
+  justify-content: center; /* Center the image horizontally */
+}
+
+.vehicle-image img {
+  width: 100%; /* Make the image fill the container */
+  height: 100%; /* Make the image match the height of the description */
+  object-fit: contain; /* Ensures the image scales and crops without distortion */
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Maintain your existing style */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Keep hover effect */
+}
+
+.vehicle-image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Price Section Styling */
+.vehicle-info .price-container {
+  position: relative; /* Allows layering the price background */
+  padding: 15px 20px;
+  margin: -30px -20px 20px; /* Pull the price outside the normal padding */
+  background-color: #0056b3; /* Bold blue background for price */
+  border-radius: 10px 10px 0 0; /* Rounded top corners only */
+  color: white; /* White text for contrast */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for layering effect */
+  text-align: center; /* Center-align the price text */
+  z-index: 1; /* Ensures it is layered on top */
+}
+
+.vehicle-info .price-container .price {
+  font-size: 32px; /* Make price text larger */
+  font-weight: bold;
+  line-height: 1.2;
+  color: white; /* Ensure the text is white */
+}
+
+/* Vehicle Information Section */
+.vehicle-info {
+  flex: 1; /* Ensure the description takes equal height */
+  padding: 20px;
+  background: linear-gradient(to bottom right, #f9f9f9, #ffffff);
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.vehicle-info h2 {
+  font-size: 24px;
+  color: #0056b3;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.vehicle-info p {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.vehicle-info p strong {
+  font-weight: bold;
+  color: #0056b3; /* Highlighted key labels */
+}
+
+/* Buttons */
+.vehicle-info .button-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vehicle-info button {
+  padding: 12px 20px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.vehicle-info button:hover {
+  background-color: #004494;
+}
+
+/* Responsive Layout */
+@media (min-width: 768px) {
+  .vehicle-detail {
+    flex-direction: row; /* Two-column layout for larger screens */
+    gap: 40px;
+  }
+
+  .vehicle-image {
+    flex: 1;
+  }
+
+  .vehicle-info {
+    flex: 1;
+    text-align: left;
+  }
+}

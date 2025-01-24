@@ -28,34 +28,64 @@ Util.getNav = async function (req, res, next) {
 * Build the classification view HTML
 * ************************************ */
 Util.buildClassificationGrid = async function(data){
-    let grid
-    if(data.length > 0){
-        grid = '<ul id="inv-display">'
+    let grid;
+    if (data.length > 0) {
+        grid = '<ul id="inv-display">';
         data.forEach(vehicle => { 
-        grid += '<li>'
-        grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-        + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-        + 'details"><img src="' + vehicle.inv_thumbnail 
-        +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-        +' on CSE Motors" /></a>'
-        grid += '<div class="namePrice">'
-        grid += '<hr />'
-        grid += '<h2>'
-        grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
-        + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
-        + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
-        grid += '</h2>'
-        grid += '<span>$' 
-        + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
-        grid += '</div>'
-        grid += '</li>'
-        })
-        grid += '</ul>'
+            grid += '<li>';
+            grid += '<a href="/inv/detail/' + vehicle.inv_id 
+                + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model 
+                + ' details"><img src="' + vehicle.inv_thumbnail 
+                + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model 
+                + ' on CSE Motors" /></a>';
+            grid += '<div class="namePrice">';
+            grid += '<hr />';
+            grid += '<h2>';
+            grid += '<a href="/inv/detail/' + vehicle.inv_id 
+                + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
+                + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>';
+            grid += '</h2>';
+            grid += '<span>$' 
+                + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
+            grid += '</div>';
+            grid += '</li>';
+        });
+        grid += '</ul>';
     } else { 
-        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+        grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>';
     }
-    return grid
+    return grid;
+};
+
+
+/* ***************************
+ * Build the vehicle detail view HTML
+ * ************************** */
+Util.buildVehicleDetailView = function (vehicle) {
+    if (!vehicle) {
+        return `<p class="notice">Vehicle details not found.</p>`;
     }
+
+    let detailHTML = `
+        <div class="vehicle-detail-page">
+            <div class="vehicle-detail">
+                <div class="vehicle-image">
+                    <img src="${vehicle.inv_image || '/images/default.jpg'}" alt="Image of ${vehicle.inv_make || 'Unknown Make'} ${vehicle.inv_model || 'Unknown Model'}">
+                </div>
+                <div class="vehicle-info">
+                    <h2>${vehicle.inv_make || 'Unknown Make'} ${vehicle.inv_model || 'Unknown Model'}</h2>
+                    <p><strong>Year:</strong> ${vehicle.inv_year || 'Unknown Year'}</p>
+                    <p><strong>Price:</strong> $${vehicle.inv_price ? new Intl.NumberFormat('en-US').format(vehicle.inv_price) : 'N/A'}</p>
+                    <p><strong>Mileage:</strong> ${vehicle.inv_miles ? new Intl.NumberFormat('en-US').format(vehicle.inv_miles) : 'N/A'} miles</p>
+                    <p><strong>Description:</strong> ${vehicle.inv_description || 'No description available.'}</p>
+                </div>
+            </div>
+        </div>
+    `;
+    return detailHTML;
+};
+
+
 
     // ADD THE NEW MIDDLEWARE FUNCTION HERE, JUST BEFORE module.exports
 /* ****************************************
