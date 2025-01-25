@@ -59,21 +59,28 @@ nav {
 nav ul {
   display: flex;
   list-style: none;
-  gap: 25px;
+  gap: 10px;
   justify-content: center;
   padding: 0;
+  flex-wrap: wrap; /* Allow items to wrap if space is limited */
 }
+
+nav ul li {
+  white-space: nowrap; /* Prevent text wrapping within items */
+ }
 
 nav ul li a {
   color: white;
   text-decoration: none;
   padding: 5px;
   font-size: 15px;
+
 }
 
 nav ul li a:hover {
   text-decoration: underline;
 }
+
 
 /******* Hero Section ***************/
 .hero {
@@ -115,7 +122,7 @@ nav ul li a:hover {
 .own-today {
   display: inline-block;
   background-color: #0056b3;
-  color: black;
+  color: rgb(255, 255, 255);
   border: none;
   padding: 11px 22px; /* Make the button larger */
   margin-top: 10px;
@@ -223,92 +230,46 @@ h1 {
 
 
 /******* Footer Content ***************/
-
 footer {
-  margin-top: 30px; /* Adds space above the footer */
-  padding-top: 10px; 
-  text-align: left;
-  font-weight: normal; /* Corrected to a valid value */
-  color: #2B2B2B;
-}
+  margin-top: 50px;
+  padding: 30px 20px;
+  background-color: #2B2B2B;
+  color: white;
+  border-radius: 5px;
+ }
+ 
+ footer p {
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.5;
+ }
+ 
+ footer a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+ }
+ 
+ footer a:hover {
+  color: var(--main-accent);
+ }
+ 
+ /* Error Test Link in Footer */
+ footer .error-test {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #8B0000; /* Dark red with good contrast */
+  color: white;
+  border-radius: 3px;
+  margin-top: 15px;
+  font-size: 12px;
+ }
+ 
+ footer .error-test:hover {
+  background-color: #f7f4f4; /* Slightly lighter red for hover */
+ }
 
-
-/******* Media Queries for Desktop ***************/
-@media (min-width: 768px) {
-  body {
-    background-image: linear-gradient(45deg, #000 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #000 75%),
-      linear-gradient(45deg, transparent 75%, #000 75%),
-      linear-gradient(45deg, #000 25%, #fff 25%);
-    background-size: 100px 100px;
-    background-position: 0 0, 0 0, -50px -50px, 50px 50px;
-  }
-
-  #wrapper {
-    border: 5px solid var(--main-accent);
-    border-radius: 10px;
-    margin-top: 1rem;
-    width: 75%;
-    max-width: 1200px;
-  }
-  
-
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 25px;
-    font-size: 18px;
-  }
-
-  .hero {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 20px;
-    margin-left: 10%;
-    padding-right: 20px;
-  }
-
-  .hero-content {
-    position: absolute;
-    left: 5%;
-    top: 20%;
-    max-width: 300px;
-    text-align: left;
-  }
-
-  .hero-image {
-    max-width: 600px;
-    margin-left: 50px;
-  }
-
-  .main-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns: Upgrades | Reviews */
-    gap: 40px; /* Spacing between columns */
-    align-items: start; /* Align both sections at the top */
-  }
-
-  .reviews {
-    order: 2;
-    margin-top: 0; /* Remove top margin */
-  }
-
-  .upgrades {
-    order: 1;
-  }
-
-  .upgrades h2,
-  .reviews h2 {
-    font-size: 22px; /* Ensure both headers have the same font size */
-    margin-bottom: 30px; /* Add consistent spacing below */
-    margin-top: 30px; /* Add consistent spacing above */;
-    line-height: 1.5; /* Ensure consistent line height */
-    min-height: 50px; /* Force both headers to have the same height */
-  }
-
-}
-
+ 
 /******* Classification Page Styling ***************/
 
 /* Classification Page Wrapper */
@@ -569,10 +530,151 @@ footer {
   background-color: #004494;
 }
 
-/* Responsive Layout */
-@media (min-width: 768px) {
+
+/******* MEDIA QUERIES ***************/
+
+/* Mobile Styles (up to 767px) */
+@media screen and (max-width: 767px) {
+  /* Navigation */
+  nav ul {
+    flex-direction: row;
+    justify-content: center; /* Align items to start */
+    gap: 5px;
+    align-items: center;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px; /* Slightly smaller font */
+  }
+
+  /* Inventory Display */
+  #inv-display {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
   .vehicle-detail {
-    flex-direction: row; /* Two-column layout for larger screens */
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .vehicle-image,
+  .vehicle-info {
+    width: 100%;
+  }
+
+  .vehicle-image img {
+    max-height: 300px;
+  }
+
+  .vehicle-info .price-container {
+    margin: 0 0 20px 0;
+  }
+
+  footer {
+    margin-top: 30px;
+    padding: 20px 15px;
+    text-align: center;
+  }
+}
+
+
+
+/* Tablet Styles (768px - 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #inv-display {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vehicle-detail {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+/* Desktop Styles (768px and above) */
+@media (min-width: 768px) {
+  /* Body Background */
+  body {
+    background-image: linear-gradient(45deg, #000 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #000 75%),
+      linear-gradient(45deg, transparent 75%, #000 75%),
+      linear-gradient(45deg, #000 25%, #fff 25%);
+    background-size: 100px 100px;
+    background-position: 0 0, 0 0, -50px -50px, 50px 50px;
+  }
+
+  /* Wrapper */
+  #wrapper {
+    border: 5px solid var(--main-accent);
+    border-radius: 10px;
+    margin-top: 1rem;
+    width: 75%;
+    max-width: 1200px;
+  }
+
+  /* Navigation */
+  nav ul li a {
+    padding: 25px;
+    font-size: 18px;
+  }
+
+  /* Hero Section */
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-left: 10%;
+    padding-right: 20px;
+  }
+
+  .hero-content {
+    position: absolute;
+    left: 5%;
+    top: 20%;
+    max-width: 300px;
+    text-align: left;
+  }
+
+  .hero-image {
+    max-width: 600px;
+    margin-left: 50px;
+  }
+
+  /* Main Grid */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .reviews {
+    order: 2;
+    margin-top: 0;
+  }
+
+  .upgrades {
+    order: 1;
+  }
+
+  .upgrades h2,
+  .reviews h2 {
+    font-size: 22px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    line-height: 1.5;
+    min-height: 50px;
+  }
+
+  /* Vehicle Detail */
+  .vehicle-detail {
+    flex-direction: row;
     gap: 40px;
   }
 
