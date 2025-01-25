@@ -25,7 +25,11 @@ app.set("layout", "./layouts/layout"); // not at views root
 /* ***********************
  * Serve Static Files
  *************************/
-app.use(express.static(path.join(__dirname, "public"))); 
+app.use(express.static(path.join(__dirname, "public"), (req, res, next) => {
+  console.log(`Serving static file: ${req.url}`);
+  next();
+}));
+
 
 /* ***********************
  * Routes
@@ -71,7 +75,7 @@ app.use(async (_req, res, _next) => {
 /* ***********************
  * Local Server Information
  *************************/
-const port = process.env.PORT || 5500; // Used Render's PORT or fallback to 5500
+const port = process.env.PORT || 5501; // Used Render's PORT or fallback to 5500
 const host = process.env.HOST || "localhost"; // Used HOST or fallback to localhost
 
 /* ***********************
