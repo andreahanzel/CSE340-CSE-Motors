@@ -36,7 +36,7 @@ Util.buildClassificationGrid = async function (data) {
             grid += `
                 <a href="/inv/detail/${vehicle.inv_id}" 
                    title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
-                    <img src="${vehicle.inv_thumbnail}" 
+                    <img src="${vehicle.inv_image}" 
                          alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors">
                 </a>`;
             grid += `
