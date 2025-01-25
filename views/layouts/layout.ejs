@@ -26,8 +26,9 @@
       <%- body %> <!-- This will render the content from other EJS files -->
 
       <footer>
-        <p class="copyright">&copy; <%= new Date().getFullYear() %>, CSE 340 App</p>
+        <%- include("../partials/footer") %> <!-- Include the footer partial -->
       </footer>
+      
     </div>
   </body>
 </html>
