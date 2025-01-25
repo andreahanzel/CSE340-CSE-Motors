@@ -10,7 +10,7 @@
 /******* Variables ***************/
 :root {
   --primary-background: #fff; 
-  --main-accent: #01ADD1;
+  --main-accent: #0056b3;
 }
 
 /******* Body & Wrapper ***************/
@@ -99,14 +99,14 @@ nav ul li a:hover {
 }
 
 .hero-content h2 {
-  color: #01ADD1;
+  color: #0056b3;
   margin-bottom: 5px;
   font-size: 20px;
   font-weight: bold;
 }
 
 .features p {
-  color: #01ADD1;
+  color: #0056b3;
   margin: 3px 0;
   font-size: 12px;
   font-weight: bold;
@@ -114,7 +114,7 @@ nav ul li a:hover {
 
 .own-today {
   display: inline-block;
-  background-color: #01ADD1;
+  background-color: #0056b3;
   color: black;
   border: none;
   padding: 11px 22px; /* Make the button larger */
@@ -199,7 +199,7 @@ h1 {
   width: 100%;
   height: 100px;
   object-fit: contain;
-  background-color: #01ADD1;
+  background-color: #0056b3;
   padding: 10px;
   border: 1px solid #2B2B2B; /* Add black border */
   border-radius: 2px; /* Slightly round the corners */
@@ -516,7 +516,15 @@ footer {
   background: linear-gradient(to bottom right, #f9f9f9, #ffffff);
   border-radius: 10px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  
 }
+
+.vehicle-info:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
+
 
 .vehicle-info h2 {
   font-size: 24px;
@@ -543,6 +551,7 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  
 }
 
 .vehicle-info button {

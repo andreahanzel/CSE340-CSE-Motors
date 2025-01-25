@@ -13,6 +13,7 @@ const expressLayouts = require("express-ejs-layouts");
 const baseController = require("./controllers/baseController"); // Added this line to import the baseController
 const inventoryRoute = require("./routes/inventoryRoute"); // Added this line to import the inventoryRoute file
 const utilities = require("./utilities/");
+const errorRoute = require("./routes/errorRoute"); // Added this line to import the errorRoute file
 
 /* **********************************
  * View Engine and Templates
@@ -36,11 +37,14 @@ app.use(static);
 // Inventory routes
 app.use("/inv", inventoryRoute); // Added this line to use the inventoryRoute for "/inv" routes
 
+// Added this line to use the errorRoute for "/error" routes
+app.use("/error", errorRoute); // Added this line to use the errorRoute for "/error" routes
+
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
 *************************/
-app.use(async (err, req, res, next) => {
+app.use(async (err, req, res, _next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
@@ -51,10 +55,11 @@ app.use(async (err, req, res, next) => {
   })
 });
 
+
 /* ***********************
  * File Not Found Route - must be last route in list
  *************************/
-app.use(async (req, res, next) => {
+app.use(async (_req, res, _next) => {
   let nav = await utilities.getNav();   // Added await here
   res.status(404).render("errors/error", {
     title: '404 Error',

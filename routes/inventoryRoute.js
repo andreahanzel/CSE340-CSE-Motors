@@ -5,14 +5,9 @@ const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
 
 // Route to build inventory by classification view
-router.get("/type/:classificationId", invController.buildByClassificationId)
+router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
 
 // Route for specific vehicle detail view
-router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildVehicleById));
-
-router.get("/detail/:inventoryId", (req, res) => {
-    res.send(`Inventory ID received: ${req.params.inventoryId}`);
-});
-
+router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildVehicleById))
 
 module.exports = router
