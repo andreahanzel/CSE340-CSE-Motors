@@ -75,19 +75,19 @@ app.use(async (_req, res, _next) => {
 /* ***********************
  * Local Server Information
  *************************/
-const port = process.env.PORT || 5501; // Used Render's PORT or fallback to 5500
-const host = process.env.HOST || "localhost"; // Used HOST or fallback to localhost
+const port = process.env.PORT || 5501; // Use Render's PORT or fallback to 5501
+const host = process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost"; // Use 0.0.0.0 for Render, localhost for local testing
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
-console.log("Environment Variables:", process.env); // Added this line to log environment variables
+console.log("Environment Variables:", process.env); // Log environment variables
 app.listen(port, host, (err) => {
   // If there is an error, log it and exit
-  if (err) { 
+  if (err) {
     console.error(`Error occurred: ${err.message}`);
     process.exit(1); // Exit with code 1 on server error
-  } else { 
-    console.log(`Server running at http://${host}:${port}/`); 
-  } 
-}); // End of app.listen
+  } else {
+    console.log(`Server running at http://${host}:${port}/`);
+  }
+});
+
+
+// End of app.listen
