@@ -355,11 +355,27 @@ footer {
 }
 
 /* No Matching Vehicles Notice */
+/* Error Messages Notice */
 .notice {
   text-align: center;
-  font-size: 18px;
-  color: #666;
-  margin: 20px;
+  font-size: 16px;
+  color: #dc3545;  /* Red color for errors */
+  margin: 20px auto;
+  width: 90%;
+  max-width: 350px;
+  list-style: none;
+  padding: 0;
+}
+
+.notice li {
+  background-color: #FFE8E8;
+  border-left: 4px solid #dc3545;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -938,6 +954,15 @@ footer {
   .form-errors {
     width: 95%;
     font-size: 0.85rem;
+}
+
+.notice {
+  font-size: 14px;
+  width: 95%;
+}
+
+.notice li {
+  padding: 10px;
 }
 }
 
