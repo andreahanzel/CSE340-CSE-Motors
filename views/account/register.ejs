@@ -1,0 +1,90 @@
+<% include("../partials/header") %>
+
+<h1 class="register-title"><%= title %></h1>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+      <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+  
+
+<div id="errorList" class="form-errors"></div>
+
+<section class="register-container">
+    <form id="registerForm" action="/account/register" method="POST">
+        <label for="account_firstname">First Name:</label>
+        <input type="text" id="account_firstname" name="account_firstname" value="<%= typeof account_firstname !== 'undefined' ? account_firstname : '' %>" required autocomplete="off">
+
+        <label for="account_lastname">Last Name:</label>
+        <input type="text" id="account_lastname" name="account_lastname" value="<%= typeof account_lastname !== 'undefined' ? account_lastname : '' %>" required autocomplete="off">
+
+        <label for="account_email">Email:</label>
+        <input type="email" id="account_email" name="account_email" value="<%= typeof account_email !== 'undefined' ? account_email : '' %>" required autocomplete="off">
+
+        <label for="account_password">Password:</label>
+        <div class="password-container">
+            <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+            <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Show/Hide Password">👁</button>
+        </div>
+        <div class="password-requirements">
+            Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character
+        </div>
+        <div class="button-container">
+            <button type="submit" class="register-button">Register</button>
+        </div>
+    </form>
+
+    <p class="register-login-text">Already have an account? <a href="/account/login">Login here</a></p>
+</section>
+
+<% include("../partials/footer") %>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        let errorMessages = [];
+        const errorList = document.getElementById("errorList");
+        
+        // First Name validation
+        const firstName = document.getElementById("account_firstname").value;
+        if (!firstName) {
+            errorMessages.push("Please provide a first name.");
+        }
+
+        // Last Name validation
+        const lastName = document.getElementById("account_lastname").value;
+        if (!lastName) {
+            errorMessages.push("Please provide a last name.");
+        }
+
+        // Email validation
+        const email = document.getElementById("account_email").value;
+        if (!email) {
+            errorMessages.push("A valid email is required.");
+        }
+
+        // Password validation
+        const password = document.getElementById("account_password").value;
+        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$/;
+        if (!regex.test(password)) {
+            errorMessages.push("Password does not meet requirements.");
+        }
+
+        // If there are any errors, prevent form submission and display errors
+        if (errorMessages.length > 0) {
+            event.preventDefault();
+            errorList.innerHTML = errorMessages.map(msg => `<p>${msg}</p>`).join('');
+        } else {
+            errorList.innerHTML = '';
+        }
+    });
+
+    function togglePassword() {
+        let passwordField = document.getElementById("account_password");
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
+</script>

@@ -1,0 +1,61 @@
+<% include("../partials/header") %>
+
+<h1 class="login-title"><%= title %></h1>
+
+<%- messages() %>
+
+<div id="errorList" class="form-errors"></div>
+
+<section class="login-container">
+    <form id="loginForm" action="/account/login" method="POST">
+        <label for="account_email">Email:</label>
+        <input type="email" id="account_email" name="account_email" required>
+
+        <label for="account_password">Password:</label>
+        <div class="password-container">
+            <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+            <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Show/Hide Password">👁</button>
+        </div>
+        <div class="password-requirements">
+            Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character
+        </div>
+        <button type="submit" class="login-button">Login</button>
+    </form>
+
+    <p class="login-register-text">Don't have an account? <a href="/account/register">Register here</a></p>
+</section>
+
+<% include("../partials/footer") %>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        let errorMessages = [];
+        const errorList = document.getElementById("errorList");
+        
+        // Email validation
+        const email = document.getElementById("account_email").value;
+        if (!email) {
+            errorMessages.push("A valid email is required.");
+        }
+
+        // Password validation
+        const password = document.getElementById("account_password").value;
+        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$/;
+        if (!regex.test(password)) {
+            errorMessages.push("Password does not meet requirements.");
+        }
+
+        // If there are any errors, prevent form submission and display errors
+        if (errorMessages.length > 0) {
+            event.preventDefault();
+            errorList.innerHTML = errorMessages.map(msg => `<p>${msg}</p>`).join('');
+        } else {
+            errorList.innerHTML = '';
+        }
+    });
+
+    function togglePassword() {
+        let passwordField = document.getElementById("account_password");
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
+</script>

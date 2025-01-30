@@ -10,10 +10,54 @@ const path = require("path")
 const app = express();
 const static = require("./routes/static");
 const expressLayouts = require("express-ejs-layouts");
-const baseController = require("./controllers/baseController"); // Added this line to import the baseController
-const inventoryRoute = require("./routes/inventoryRoute"); // Added this line to import the inventoryRoute file
+const baseController = require("./controllers/baseController"); //Import the baseController
+const inventoryRoute = require("./routes/inventoryRoute"); // Import the inventoryRoute file
 const utilities = require("./utilities/");
-const errorRoute = require("./routes/errorRoute"); // Added this line to import the errorRoute file
+const errorRoute = require("./routes/errorRoute"); // Import the errorRoute file
+const bodyParser = require("body-parser");
+const messages = require("express-messages");
+const accountRoute = require("./routes/accountRoute");
+
+
+
+
+const session = require("express-session");
+const pool = require("./database/"); // Matches the actual database connection file
+const pgSession = require("connect-pg-simple")(session); // Added connect-pg-simple for session storage
+const flash = require("connect-flash");
+
+
+/* ***********************
+ * Middleware Express Session
+ * ************************/
+app.use(session({
+  store: new pgSession({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}));
+
+/* ***********************
+ * Flash Message Middleware
+ * ************************/
+app.use(flash())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+});
+
+
+
+/* ***********************
+  * Body Parser Middleware
+  ************************/
+  app.use(bodyParser.json()); // Parse JSON bodies
+  app.use(bodyParser.urlencoded({ extended: true })); //for parse application/ x-www-form-urlencoded
+
 
 /* **********************************
  * View Engine and Templates
@@ -35,14 +79,18 @@ app.use(express.static(path.join(__dirname, "public"), (req, res, next) => {
  * Routes
  *************************/
 // Updated the Index route to use the baseController method
-app.get("/", utilities.handleErrors(baseController.buildHome))// Changed this line to call the buildHome method
+app.get("/", utilities.handleErrors(baseController.buildHome))// Call the buildHome method
 app.use(static);
 
 // Inventory routes
-app.use("/inv", inventoryRoute); // Added this line to use the inventoryRoute for "/inv" routes
+app.use("/inv", inventoryRoute); // Use the inventoryRoute for "/inv" routes
 
-// Added this line to use the errorRoute for "/error" routes
-app.use("/error", errorRoute); // Added this line to use the errorRoute for "/error" routes
+// Account routes
+app.use("/account", accountRoute); // Use the already required accountRoute
+
+
+// Use the errorRoute for "/error" routes
+app.use("/error", errorRoute); // Use the errorRoute for "/error" routes
 
 /* ***********************
 * Express Error Handler

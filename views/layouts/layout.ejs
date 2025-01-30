@@ -20,8 +20,24 @@
       <nav>
         <%- nav %>
       </nav>
+  
+      <!-- Flash Messages -->
+      <% if (messages()) { %>
+        <div id="messages">
+          <ul class="messages">
+            <% if (messages('notice')) { %>
+              <li class="notice"><%= messages('notice') %></li>
+            <% } %>
+            <% if (messages('success')) { %>
+              <li class="success"><%= messages('success') %></li>
+            <% } %>
+            <% if (messages('error')) { %>
+              <li class="error"><%= messages('error') %></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } %>
       
-
       <!-- EJS content injection -->
       <%- body %> <!-- This will render the content from other EJS files -->
 
