@@ -354,6 +354,24 @@ footer {
   display: block;
 }
 
+/* Invalid Input Styling */
+input:invalid {
+  border-color: #dc3545;
+}
+
+input:focus:invalid {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Valid Input Styling */
+input:valid {
+  border-color: #28a745;
+}
+
+input:focus:valid {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
 /* No Matching Vehicles Notice */
 /* Error Messages Notice */
 .notice {
@@ -934,6 +952,218 @@ footer {
   text-decoration: underline;
 }
 
+/* Management Page Styling */
+.management-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.management-wrapper h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.management-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.management-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #0056b3;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.management-button:hover {
+  background-color: #003d82;
+}
+
+
+/* Classification Form Styling */
+
+.add-classification {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.add-classification h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.add-classification p {
+  color: #666;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.add-classification-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0,86,179,0.2);
+}
+
+.submit-button {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #003d82;
+}
+
+/* Delete Classification Page Styling */
+
+.delete-classification {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.delete-classification h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.delete-classification p {
+  color: #666;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.delete-classification-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.delete-classification select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.delete-classification select:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0,86,179,0.2);
+}
+
+/* Add Vehicle Page Styling */
+
+.add-inventory {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.add-inventory h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.add-inventory-form {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #444;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+
+/* Management Client Side Page */
+
+.management-view {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.management-tools {
+  display: grid;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.management-tools a {
+  background: #0056b3;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.management-tools a:hover {
+  background: #004494;
+}
+
+
+
 
 /* Responsive Updates */
 @media (max-width: 480px) {
@@ -964,25 +1194,19 @@ footer {
 .notice li {
   padding: 10px;
 }
+
+.management-links {
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Invalid Input Styling */
-input:invalid {
-  border-color: #dc3545;
+.management-button {
+  width: 100%;
+  text-align: center;
+}
 }
 
-input:focus:invalid {
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-}
 
-/* Valid Input Styling */
-input:valid {
-  border-color: #28a745;
-}
-
-input:focus:valid {
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-}
 
 /* 🔹 Animations */
 @keyframes fadeInUp {

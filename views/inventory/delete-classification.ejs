@@ -1,0 +1,29 @@
+<div class="delete-classification">
+    <h1>Delete Classification</h1>
+    
+    <%- messages() %>
+
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <form action="/inv/delete-classification" method="POST" class="delete-classification-form">
+        <p>Choose a classification to delete:</p>
+        <div class="form-group">
+            <label for="classification_id">Classification:</label>
+            <select name="classification_id" id="classification_id" required>
+                <option value="">Select a Classification</option>
+                <% classifications.forEach(classification => { %>
+                    <option value="<%= classification.classification_id %>">
+                        <%= classification.classification_name %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        <button type="submit" class="submit-button">Delete Classification</button>
+    </form>
+</div>
