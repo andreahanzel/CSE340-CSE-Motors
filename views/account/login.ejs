@@ -4,6 +4,14 @@
 
 <%- messages() %>
 
+<% if (errors) { %>
+    <div class="alert alert-danger">
+        <% errors.forEach(error => { %>
+            <p><%= error.msg %></p>
+        <% }); %>
+    </div>
+<% } %>
+
 
 <div id="errorList" class="form-errors"></div>
 

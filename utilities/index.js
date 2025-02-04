@@ -1,4 +1,6 @@
 const invModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const Util = {};
 
 /* ************************
@@ -115,5 +117,52 @@ Util.buildClassificationList = async function (classification_id = null) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+    // Check if this is a protected route (/account/ paths except login and register)
+    if (req.originalUrl.startsWith('/account') && 
+        req.originalUrl !== '/account/login' && 
+        req.originalUrl !== '/account/register') {
+        // If no token when accessing protected route
+        if (!req.cookies.jwt) {
+            return res.redirect('/account/login');
+        }
+        // If token exists, verify it
+        jwt.verify(
+            req.cookies.jwt,
+            process.env.ACCESS_TOKEN_SECRET,
+            function (err, accountData) {
+                if (err) {
+                    res.clearCookie("jwt")
+                    return res.redirect("/account/login")
+                }
+                res.locals.accountData = accountData
+                res.locals.loggedin = 1
+                next()
+            }
+        )
+    } else {
+        // Not a protected route
+        next()
+    }
+}
+
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+    if (res.locals.loggedin) {
+    next()
+    } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+    }
+}
+
+
 
 module.exports = Util;

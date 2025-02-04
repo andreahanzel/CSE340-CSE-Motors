@@ -9,6 +9,15 @@ const accountController = require("../controllers/accountController");
 const utilities = require("../utilities");
 const regValidation = require("../utilities/account-validation");
 
+
+/* **********************************
+ *  Deliver Account Management View
+ * **********************************/
+router.get(
+  "/", 
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildAccountManagement));
+
 /* **********************************
  *  Deliver Login View
  * **********************************/
@@ -32,9 +41,15 @@ router.post("/register",
  * ************************************************ */
 router.post(
     "/login",
-    (req, res) => {
-      res.status(200).send('login process')
-    }
+    regValidation.loginRules(),
+    regValidation.checkLoginData,
+    utilities.handleErrors(accountController.accountLogin)
   );
+
+ /* ****************************************
+ *  Logout Route - Clear JWT and Redirect
+ * ************************************ */
+router.get("/logout", utilities.handleErrors(accountController.accountLogout));
+
 
 module.exports = router;

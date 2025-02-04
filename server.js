@@ -17,8 +17,7 @@ const errorRoute = require("./routes/errorRoute"); // Import the errorRoute file
 const bodyParser = require("body-parser");
 const messages = require("express-messages");
 const accountRoute = require("./routes/accountRoute");
-
-
+const cookieParser = require("cookie-parser");
 
 
 const session = require("express-session");
@@ -58,6 +57,16 @@ app.use(function(req, res, next){
   app.use(bodyParser.json()); // Parse JSON bodies
   app.use(bodyParser.urlencoded({ extended: true })); //for parse application/ x-www-form-urlencoded
 
+
+/* ***********************
+  * Login Activity Middleware
+  ************************/
+  app.use(cookieParser())
+
+  /* ***********************
+  * Login Process Activity Middleware
+  ************************/
+app.use(utilities.checkJWTToken)
 
 /* **********************************
  * View Engine and Templates
