@@ -1,0 +1,49 @@
+<div class="delete-inventory">
+    <h1><%= title %></h1>
+
+    <%- messages() %>
+
+    <p>⚠️ <strong>Confirm Deletion</strong> - This action is permanent and cannot be undone.</p>
+
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <form action="/inv/delete" method="post" class="delete-inventory-form">
+        <div class="form-group">
+            <label for="inv_make">Make:</label>
+            <input type="text" id="inv_make" name="inv_make" readonly 
+                value="<%= locals.inv_make %>">
+        </div>
+
+        <div class="form-group">
+            <label for="inv_model">Model:</label>
+            <input type="text" id="inv_model" name="inv_model" readonly 
+                value="<%= locals.inv_model %>">
+        </div>
+
+        <div class="form-group">
+            <label for="inv_year">Year:</label>
+            <input type="number" id="inv_year" name="inv_year" readonly 
+                value="<%= locals.inv_year %>">
+        </div>
+
+        <div class="form-group">
+            <label for="inv_price">Price:</label>
+            <input type="number" id="inv_price" name="inv_price" readonly 
+                value="<%= locals.inv_price %>">
+        </div>
+
+        <p>Are you sure you want to delete this item?</p>
+
+        <!-- Delete Button -->
+        <button type="submit">Delete Vehicle</button>
+
+        <!-- Hidden Input to Store Inventory ID -->
+        <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
+    </form>
+</div>

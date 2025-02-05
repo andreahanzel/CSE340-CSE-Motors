@@ -117,48 +117,45 @@ Util.handleErrors = (fn) => (req, res, next) => Promise.resolve(fn(req, res, nex
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
-    // Check if this is a protected route (/account/ paths except login and register, and all /inv paths)
-    if ((req.originalUrl.startsWith('/account') && 
-        req.originalUrl !== '/account/login' && 
-        req.originalUrl !== '/account/register') || 
-        req.originalUrl.startsWith('/inv')) {  
-        
-        // If no token when accessing protected route
-        if (!req.cookies.jwt) {
-            return res.redirect('/account/login');
-        }
-        // If token exists, verify it
-        jwt.verify(
-            req.cookies.jwt,
-            process.env.ACCESS_TOKEN_SECRET,
-            function (err, accountData) {
-                if (err) {
-                    res.clearCookie("jwt")
-                    return res.redirect("/account/login")
-                }
-                res.locals.accountData = accountData
-                res.locals.loggedin = 1
-                next()
-            }
-        )
-    } else {
-        // Not a protected route
-        next()
+    if (!req.cookies.jwt) {
+        console.log("🚨 No JWT found! User not authenticated.");
+        return next();  // Continue to public routes
     }
+
+    jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, (err, accountData) => {
+        if (err) {
+            console.log("🚨 JWT verification failed!");
+            res.clearCookie("jwt");
+            return next();
+        }
+        
+        console.log("✅ JWT Verified! User authenticated.");
+        res.locals.accountData = accountData;
+        res.locals.loggedin = true;
+        next();
+    });
 };
+
+
 
 /* ****************************************
  *  Check Login
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
+    console.log("🔍 Checking Login...");
+    console.log("🔹 JWT Cookie:", req.cookies.jwt);
+    console.log("🔹 Logged in state:", res.locals.loggedin);
+
     if (res.locals.loggedin) {
-        next()
+        console.log("✅ User is logged in.");
+        next();
     } else {
-        req.flash("notice", "Please log in.")
-        // Store the original URL the person was trying to visit
-        req.session.returnTo = req.originalUrl
-        return res.redirect("/account/login")
+        console.log("🚨 User NOT logged in! Redirecting to login...");
+        req.flash("notice", "Please log in.");
+        req.session.returnTo = req.originalUrl;  // Save the URL they tried to access
+        return res.redirect("/account/login");
     }
 };
+
 
 module.exports = Util;

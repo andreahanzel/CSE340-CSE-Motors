@@ -1494,6 +1494,69 @@ noscript {
   font-weight: bold;
 }
 
+/* 🔥 DELETE CONFIRMATION STYLES 🔥 */
+.delete-inventory {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 2px solid #dc3545; /* Red border for danger alert */
+  border-radius: 8px;
+  background-color: #fff3f3; /* Light red background */
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-inventory h1 {
+  color: #dc3545; /* Red for warning */
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.delete-inventory p {
+  color: #721c24; /* Darker red for text */
+  font-weight: bold;
+  background: #f8d7da; /* Light red warning background */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f5c6cb;
+}
+
+.delete-inventory .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.delete-inventory label {
+  font-weight: bold;
+  color: #333;
+}
+
+.delete-inventory input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
+.delete-inventory button {
+  width: 100%;
+  padding: 10px;
+  background-color: #dc3545; /* Red button for danger */
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.delete-inventory button:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+
 
 /* 🔹 Animations */
 @keyframes fadeInUp {

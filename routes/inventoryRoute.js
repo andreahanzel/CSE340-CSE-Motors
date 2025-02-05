@@ -7,24 +7,22 @@ const classValidate = require("../utilities/classification-validation")
 const invValidate = require("../utilities/inventory-validation")
 
 // Public routes - no login required
-router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
-router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildVehicleById))
+router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
+router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildVehicleById));
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON)); // ✅ Now public
 
 // Protected routes - require login
 router.get("/", utilities.checkLogin, utilities.handleErrors(invController.buildManagement));
+//router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get("/management", utilities.checkLogin, utilities.handleErrors(invController.buildManagement));
 
 router.get("/add-classification", utilities.checkLogin, utilities.handleErrors(invController.buildAddClassification));
 router.post(
     "/add-classification",
-    utilities.checkLogin, // Added protection
+    utilities.checkLogin, 
     classValidate.classificationRules(),
     classValidate.checkClassData,
-    utilities.handleErrors(async (req, res) => {
-        const result = await invController.addClassification(req, res);
-        if (result) {
-            res.redirect("/inv/management");
-        }
-    })
+    utilities.handleErrors(invController.addClassification)
 );
 
 router.get("/delete-classification", utilities.checkLogin, utilities.handleErrors(invController.buildDeleteClassification));
@@ -33,34 +31,39 @@ router.post("/delete-classification", utilities.checkLogin, utilities.handleErro
 router.get("/add-inventory", utilities.checkLogin, utilities.handleErrors(invController.buildAddInventory))
 router.post(
     "/add-inventory",
-    utilities.checkLogin, // Added protection
+    utilities.checkLogin,
     invValidate.inventoryRules(),
     invValidate.checkInvData,
-    utilities.handleErrors(async (req, res) => {
-        const result = await invController.addInventory(req, res);
-        if (result) {
-            res.redirect("/inv/management");
-        }
-    })
+    utilities.handleErrors(invController.addInventory)
 );
 
-router.get("/management", utilities.checkLogin, utilities.handleErrors(invController.buildManagement));
-router.get("/getInventory/:classification_id", utilities.checkLogin, utilities.handleErrors(invController.getInventoryJSON));
-
-// Edit inventory
- router.get("/edit/:inv_id", 
+// Edit inventory (should remain protected)
+router.get("/edit/:inv_id", 
     utilities.checkLogin,
     utilities.handleErrors(invController.editInventoryView)
-  );
-
-  // 🔹 Added route to process the inventory update
-router.post(
-    "/update/",
-    utilities.checkLogin, // Ensure only logged-in users can update inventory
-    invValidate.inventoryRules(), // Validate the input data
-    invValidate.checkUpdateData, // Process validation and return errors if needed
-    utilities.handleErrors(invController.updateInventory) // Call the controller function
 );
 
+// Route to process inventory update (should remain protected)
+router.post(
+    "/update/",
+    utilities.checkLogin,
+    invValidate.inventoryRules(),
+    invValidate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory)
+);
 
-module.exports = router
+// Route to display the delete confirmation view (should remain protected)
+router.get(
+    "/delete/:inv_id",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.confirmDeleteView)
+);
+
+// Route to process the delete action (should remain protected)
+router.post(
+    "/delete/",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.deleteInventoryItem)
+);
+
+module.exports = router;
