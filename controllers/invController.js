@@ -20,6 +20,19 @@ invCont.buildByClassificationId = utilities.handleErrors(async function (req, re
 });
 
 /* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+    const classification_id = parseInt(req.params.classification_id)
+    const invData = await invModel.getInventoryByClassificationId(classification_id)
+    if (invData[0].inv_id) {
+        return res.json(invData)
+    } else {
+        next(new Error("No data returned"))
+    }
+}
+
+/* ***************************
  * Build vehicle detail view
  * ************************** */
 invCont.buildVehicleById = async function (req, res, next) {
@@ -71,10 +84,12 @@ invCont.buildVehicleById = async function (req, res, next) {
 invCont.buildManagement = async function (req, res, next) {
     const classifications = await invModel.getClassifications()
     let nav = await utilities.getNav()
+    const classificationSelect = await utilities.buildClassificationList() // Get classification list for dropdown
     res.render("./inventory/management", {
         title: "Vehicle Management",
         nav,
         classifications: classifications.rows,
+        classificationSelect, // Added this to pass the select list to the view
         errors: null,
     })
 };

@@ -6,20 +6,17 @@ const utilities = require("../utilities/")
 const classValidate = require("../utilities/classification-validation")
 const invValidate = require("../utilities/inventory-validation")
 
-// Route to build inventory by classification view
+// Public routes - no login required
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
-
-// Route for specific vehicle detail view
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildVehicleById))
 
-// Route for inventory management view
-router.get("/", utilities.handleErrors(invController.buildManagement));
+// Protected routes - require login
+router.get("/", utilities.checkLogin, utilities.handleErrors(invController.buildManagement));
 
-// Route to add a new classification
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
-// Update existing routes to redirect success cases to management
+router.get("/add-classification", utilities.checkLogin, utilities.handleErrors(invController.buildAddClassification));
 router.post(
     "/add-classification",
+    utilities.checkLogin, // Added protection
     classValidate.classificationRules(),
     classValidate.checkClassData,
     utilities.handleErrors(async (req, res) => {
@@ -30,15 +27,13 @@ router.post(
     })
 );
 
-// Route to delete a classification
-router.get("/delete-classification", utilities.handleErrors(invController.buildDeleteClassification));
-router.post("/delete-classification", utilities.handleErrors(invController.deleteClassification));
+router.get("/delete-classification", utilities.checkLogin, utilities.handleErrors(invController.buildDeleteClassification));
+router.post("/delete-classification", utilities.checkLogin, utilities.handleErrors(invController.deleteClassification));
 
-
-// Route to add new inventory item
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory))
+router.get("/add-inventory", utilities.checkLogin, utilities.handleErrors(invController.buildAddInventory))
 router.post(
     "/add-inventory",
+    utilities.checkLogin, // Added protection
     invValidate.inventoryRules(),
     invValidate.checkInvData,
     utilities.handleErrors(async (req, res) => {
@@ -49,7 +44,7 @@ router.post(
     })
 );
 
-// Management view route
-router.get("/management", utilities.handleErrors(invController.buildManagement));
+router.get("/management", utilities.checkLogin, utilities.handleErrors(invController.buildManagement));
+router.get("/getInventory/:classification_id", utilities.checkLogin, utilities.handleErrors(invController.getInventoryJSON));
 
 module.exports = router

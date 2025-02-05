@@ -61,7 +61,6 @@ Util.buildClassificationGrid = async function (data) {
     return grid;
 };
 
-
 /* ***************************
  * Build the vehicle detail view HTML
  * ************************** */
@@ -76,7 +75,6 @@ Util.buildVehicleDetailView = function (vehicle) {
                 <div class="vehicle-image">
                     <img src="${vehicle.inv_image || "/images/default.jpg"}" 
                         alt="Image of ${vehicle.inv_make || "Unknown Make"} ${vehicle.inv_model || "Unknown Model"}">
-
                 </div>
                 <div class="vehicle-info">
                     <h2>${vehicle.inv_make || "Unknown Make"} ${vehicle.inv_model || "Unknown Model"}</h2>
@@ -94,7 +92,6 @@ Util.buildVehicleDetailView = function (vehicle) {
 /* ***************************
  * Build the vehicle form view HTML
  * ************************** */
-
 Util.buildClassificationList = async function (classification_id = null) {
     let data = await invModel.getClassifications()
     let classificationList =
@@ -113,8 +110,6 @@ Util.buildClassificationList = async function (classification_id = null) {
 
 /* ****************************************
  * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
@@ -122,10 +117,12 @@ Util.handleErrors = (fn) => (req, res, next) => Promise.resolve(fn(req, res, nex
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
-    // Check if this is a protected route (/account/ paths except login and register)
-    if (req.originalUrl.startsWith('/account') && 
+    // Check if this is a protected route (/account/ paths except login and register, and all /inv paths)
+    if ((req.originalUrl.startsWith('/account') && 
         req.originalUrl !== '/account/login' && 
-        req.originalUrl !== '/account/register') {
+        req.originalUrl !== '/account/register') || 
+        req.originalUrl.startsWith('/inv')) {  
+        
         // If no token when accessing protected route
         if (!req.cookies.jwt) {
             return res.redirect('/account/login');
@@ -148,21 +145,20 @@ Util.checkJWTToken = (req, res, next) => {
         // Not a protected route
         next()
     }
-}
-
+};
 
 /* ****************************************
  *  Check Login
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
     if (res.locals.loggedin) {
-    next()
+        next()
     } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
+        req.flash("notice", "Please log in.")
+        // Store the original URL the person was trying to visit
+        req.session.returnTo = req.originalUrl
+        return res.redirect("/account/login")
     }
-}
-
-
+};
 
 module.exports = Util;

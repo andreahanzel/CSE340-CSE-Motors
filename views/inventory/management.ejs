@@ -1,5 +1,3 @@
-
-
 <div class="management-wrapper">
     <h1>Vehicle Management</h1>
     
@@ -9,7 +7,19 @@
         <a href="/inv/add-classification" class="management-button">Add New Classification</a>
         <a href="/inv/add-inventory" class="management-button">Add New Vehicle</a>
         <a href="/inv/delete-classification" class="management-button">Delete Classification</a>
-        
     </div>
+
+    <!-- New content starts here -->
+    <h2>Manage Inventory</h2>
+
+    <p class="select-instruction">Select a classification from the list to see the items belonging to the classification.</p>
+
+    <%- classificationSelect %>
+
+    <table id="inventoryDisplay"></table>
+
+    <noscript>JavaScript must be enabled to use this page.</noscript>
 </div>
 
+<!-- Add the script tag outside the wrapper div -->
+<script src="../../js/inventory.js"></script>
