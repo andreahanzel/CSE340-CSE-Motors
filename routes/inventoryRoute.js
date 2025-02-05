@@ -47,4 +47,20 @@ router.post(
 router.get("/management", utilities.checkLogin, utilities.handleErrors(invController.buildManagement));
 router.get("/getInventory/:classification_id", utilities.checkLogin, utilities.handleErrors(invController.getInventoryJSON));
 
+// Edit inventory
+ router.get("/edit/:inv_id", 
+    utilities.checkLogin,
+    utilities.handleErrors(invController.editInventoryView)
+  );
+
+  // 🔹 Added route to process the inventory update
+router.post(
+    "/update/",
+    utilities.checkLogin, // Ensure only logged-in users can update inventory
+    invValidate.inventoryRules(), // Validate the input data
+    invValidate.checkUpdateData, // Process validation and return errors if needed
+    utilities.handleErrors(invController.updateInventory) // Call the controller function
+);
+
+
 module.exports = router

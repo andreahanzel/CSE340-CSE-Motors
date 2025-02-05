@@ -1270,6 +1270,102 @@ input:focus:valid {
   border: 0;
 }
 
+/******* Edit Inventory Page Styling ***************/
+
+.edit-inventory {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeInUp 0.5s ease-in-out;
+}
+
+.edit-inventory h1 {
+  font-size: 28px;
+  color: #0056b3;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form Container */
+.edit-inventory-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form Groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* Input Fields */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.form-group textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* Input Hover and Focus Effects */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 86, 179, 0.3);
+}
+
+/* Submit Button */
+.edit-inventory-form button {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.edit-inventory-form button:hover {
+  background: linear-gradient(135deg, #0056b3, #004494);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+
 
 /* Responsive Updates */
 @media (max-width: 480px) {
@@ -1461,7 +1557,46 @@ noscript {
     
     .management-wrapper {
         padding: 10px;
-    }
+      }
+
+      .edit-inventory {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .edit-inventory h1 {
+    font-size: 24px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .edit-inventory-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .edit-inventory {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .edit-inventory h1 {
+    font-size: 24px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .edit-inventory-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
 
 
