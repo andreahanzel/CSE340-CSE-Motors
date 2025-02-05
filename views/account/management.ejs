@@ -17,8 +17,8 @@
   <h2 class="account-mgmt-welcome">Hello <%= accountData.account_firstname %></h2>
 
   <div class="account-mgmt-links">
-    <a href="/account/update/<%= accountData.account_id %>" class="account-update-link">Update Account Information</a>
-  </div>
+    <a href="/account/update" class="account-update-link">Update Account Information</a>
+</div>
 
   <% if (accountData.account_type === "Employee" || accountData.account_type === "Admin") { %>
     <div class="account-mgmt-section">

@@ -51,5 +51,37 @@ router.post(
  * ************************************ */
 router.get("/logout", utilities.handleErrors(accountController.accountLogout));
 
+/* ****************************************
+ *  Deliver Update Account View
+ * ************************************ */
+router.get(
+  "/update",
+  utilities.checkLogin,  // ✅ Ensure user is logged in
+  utilities.handleErrors(accountController.showUpdateForm)
+);
+
+/* ****************************************
+ *  Process Account Update
+ * ************************************ */
+router.post(
+  "/update",
+  utilities.checkLogin,  // ✅ Ensure user is logged in
+  ...regValidation.updateAccountRules(), // ✅ Corrected - Spread array
+  regValidation.checkUpdateData, // ✅ Handle validation errors
+  utilities.handleErrors(accountController.updateAccount)
+);
+
+/* ****************************************
+ *  Process Password Update
+ * ************************************ */
+router.post(
+  "/update-password",
+  utilities.checkLogin,  // ✅ Ensure user is logged in
+  regValidation.passwordRules(), // ✅ Validate new password
+  regValidation.checkPasswordData, // ✅ Handle validation errors
+  utilities.handleErrors(accountController.updatePassword)
+);
+
+
 
 module.exports = router;

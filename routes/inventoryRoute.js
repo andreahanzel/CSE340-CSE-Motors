@@ -16,17 +16,22 @@ router.get("/", utilities.checkLogin, utilities.handleErrors(invController.build
 //router.get("/", utilities.handleErrors(invController.buildManagement));
 router.get("/management", utilities.checkLogin, utilities.handleErrors(invController.buildManagement));
 
+
+/* ****************************************
+ * Apply checkAdminOrEmployee to Inventory Routes 
+ **************************************** */
 router.get("/add-classification", utilities.checkLogin, utilities.handleErrors(invController.buildAddClassification));
 router.post(
     "/add-classification",
     utilities.checkLogin, 
+    utilities.checkAdminOrEmployee, // | ✅ ADDED checkAdminOrEmployee
     classValidate.classificationRules(),
     classValidate.checkClassData,
     utilities.handleErrors(invController.addClassification)
 );
 
-router.get("/delete-classification", utilities.checkLogin, utilities.handleErrors(invController.buildDeleteClassification));
-router.post("/delete-classification", utilities.checkLogin, utilities.handleErrors(invController.deleteClassification));
+router.get("/delete-classification", utilities.checkLogin, utilities.checkAdminOrEmployee, utilities.handleErrors(invController.buildDeleteClassification)); // | ✅ ADDED checkAdminOrEmployee
+router.post("/delete-classification", utilities.checkLogin, utilities.checkAdminOrEmployee, utilities.handleErrors(invController.deleteClassification)); // | ✅ ADDED checkAdminOrEmployee
 
 router.get("/add-inventory", utilities.checkLogin, utilities.handleErrors(invController.buildAddInventory))
 router.post(
@@ -40,6 +45,7 @@ router.post(
 // Edit inventory (should remain protected)
 router.get("/edit/:inv_id", 
     utilities.checkLogin,
+    utilities.checkAdminOrEmployee, // | ✅ ADDED checkAdminOrEmployee
     utilities.handleErrors(invController.editInventoryView)
 );
 
@@ -47,6 +53,7 @@ router.get("/edit/:inv_id",
 router.post(
     "/update/",
     utilities.checkLogin,
+    utilities.checkAdminOrEmployee, // | ✅ ADDED checkAdminOrEmployee
     invValidate.inventoryRules(),
     invValidate.checkUpdateData,
     utilities.handleErrors(invController.updateInventory)
@@ -56,6 +63,7 @@ router.post(
 router.get(
     "/delete/:inv_id",
     utilities.checkLogin,
+    utilities.checkAdminOrEmployee, // | ✅ ADDED checkAdminOrEmployee
     utilities.handleErrors(invController.confirmDeleteView)
 );
 
@@ -63,6 +71,7 @@ router.get(
 router.post(
     "/delete/",
     utilities.checkLogin,
+    utilities.checkAdminOrEmployee, // | ✅ ADDED checkAdminOrEmployee
     utilities.handleErrors(invController.deleteInventoryItem)
 );
 

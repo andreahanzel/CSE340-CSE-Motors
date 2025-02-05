@@ -129,7 +129,7 @@ Util.checkJWTToken = (req, res, next) => {
             return next();
         }
         
-        console.log("✅ JWT Verified! User authenticated.");
+        console.log("JWT Verified! User authenticated.");
         res.locals.accountData = accountData;
         res.locals.loggedin = true;
         next();
@@ -147,7 +147,7 @@ Util.checkLogin = (req, res, next) => {
     console.log("🔹 Logged in state:", res.locals.loggedin);
 
     if (res.locals.loggedin) {
-        console.log("✅ User is logged in.");
+        console.log("User is logged in.");
         next();
     } else {
         console.log("🚨 User NOT logged in! Redirecting to login...");
@@ -155,6 +155,20 @@ Util.checkLogin = (req, res, next) => {
         req.session.returnTo = req.originalUrl;  // Save the URL they tried to access
         return res.redirect("/account/login");
     }
+};
+
+/* ****************************************
+ * Middleware to check if the user is an Admin or Employee
+ **************************************** */
+Util.checkAdminOrEmployee = (req, res, next) => {  // | ✅ ADDED THIS FUNCTION
+    if (!res.locals.accountData || 
+        (res.locals.accountData.account_type !== "Admin" && 
+         res.locals.accountData.account_type !== "Employee")) {
+        
+        req.flash("notice", "Unauthorized access. You must be an Employee or Admin.");
+        return res.redirect("/account/login");
+    }
+    next();
 };
 
 
