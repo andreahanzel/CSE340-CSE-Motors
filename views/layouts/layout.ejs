@@ -8,26 +8,13 @@
   </head>
   <body>
     <div id="wrapper">
-      <header id="top-header">
-        <span class="siteName">
-          <a href="/" title="Return to home page">CSE Motors</a>
-        </span>
+      <!-- Include the header from a separate file -->
+      <%- include("../partials/header") %>
 
-        <div id="tools">
-          <% if (locals.loggedin) { %>
-            <span class="welcome">WELCOME <%= locals.accountData.account_firstname.toUpperCase() %></span>
-            <a href="/account/logout" class="logout">LOGOUT</a>
-          <% } else { %>
-            <a title="Click to log in" href="/account/login">MY ACCOUNT</a>
-          <% } %>
-        </div>
-
-      </header>
-      
       <nav>
         <%- nav %>
       </nav>
-  
+
       <!-- Flash Messages -->
       <% if (messages()) { %>
         <div id="messages">
@@ -44,14 +31,15 @@
           </ul>
         </div>
       <% } %>
-      
+
       <!-- EJS content injection -->
-      <%- body %> <!-- This will render the content from other EJS files -->
+      <main>
+        <%- body %> <!-- This will render the content from other EJS files -->
+      </main>
 
       <footer>
         <%- include("../partials/footer") %> <!-- Include the footer partial -->
       </footer>
-      
     </div>
   </body>
 </html>

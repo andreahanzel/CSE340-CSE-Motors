@@ -1,21 +1,31 @@
-<% if (title) { %>
-    <h1><%= title %></h1>
-  <% } %>
-  
-  <%- messages() %>
-  
-  <% if (errors) { %>
-    <ul class="notice">
-      <% errors.array().forEach(error => { %>
-        <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-  <% } %>
-  
-  <div class="account-management">
-      <h2>Welcome, <%= accountData.account_firstname %></h2>
-      <p>You're logged in!</p>
-      <p>Account Type: <%= accountData.account_type %></p>
 
-      <a href="/account/logout" class="btn-logout">Logout</a>
+<% if (title) { %>
+  <h1 class="account-title"><%= title %></h1>
+<% } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+      <% errors.array().forEach(error => { %>
+          <li><%= error.msg %></li>
+      <% }) %>
+  </ul>
+<% } %>
+
+<div class="account-mgmt-container">
+  <h2 class="account-mgmt-welcome">Hello <%= accountData.account_firstname %></h2>
+
+  <div class="account-mgmt-links">
+    <a href="/account/update/<%= accountData.account_id %>" class="account-update-link">Update Account Information</a>
   </div>
+
+  <% if (accountData.account_type === "Employee" || accountData.account_type === "Admin") { %>
+    <div class="account-mgmt-section">
+      <h3 class="account-mgmt-subtitle">Inventory Management</h3>
+      <a href="/inv/" class="account-mgmt-link">Manage Inventory</a>
+    </div>
+  <% } %>
+
+  <p class="account-mgmt-type">Account Type: <%= accountData.account_type %></p>
+</div>

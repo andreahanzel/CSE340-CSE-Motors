@@ -44,35 +44,42 @@ body {
   font-weight: bold;
 }
 
-#tools a {
-  text-decoration: none;
-  color: #2B2B2B;
-  font-size: 11px;
-}
-
-/* Add these new styles for the tools section */
+/* Style for the account section */
 #tools {
   display: flex;
-  gap: 15px;
   align-items: center;
+  gap: 15px;
 }
 
+/* Style the welcome message and links */
 #tools .welcome {
-  color: #333;
   font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* General link styling inside the tools section */
+#tools a {
+  text-decoration: none; /* Remove default underline */
+  color: #0056b3; /* Primary link color */
   font-weight: bold;
 }
 
+/* Add underline only on hover */
+#tools a:hover {
+  text-decoration: underline;
+}
+
+/* Style logout link */
 #tools .logout {
-  color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: bold;
+  color: #dc3545; /* Logout button in a warning color */
 }
 
 #tools .logout:hover {
   text-decoration: underline;
 }
+
+
 
 /******* Navigation ***************/
 nav {
@@ -1555,6 +1562,101 @@ noscript {
 .delete-inventory button:hover {
   background-color: #c82333; /* Darker red */
 }
+
+/* Account Management Container */
+.account-mgmt-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Account Title */
+.account-title {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+/* Welcome Section */
+.account-mgmt-welcome {
+  color: #0056b3;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.account-mgmt-name {
+  color: #0056b3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.account-mgmt-name:hover {
+  text-decoration: underline;
+  color: #003d82;
+}
+
+/* Update Account Link Section */
+.account-mgmt-links {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.account-update-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0056b3;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.account-update-link:hover {
+  background-color: #003d82;
+}
+
+/* Inventory Management Section */
+.account-mgmt-section {
+  margin: 25px 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.account-mgmt-subtitle {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.account-mgmt-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.account-mgmt-link:hover {
+  background-color: #218838;
+}
+
+/* Account Type Display */
+.account-mgmt-type {
+  margin-top: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
 
 
 
