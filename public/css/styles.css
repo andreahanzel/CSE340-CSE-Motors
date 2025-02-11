@@ -1775,7 +1775,90 @@ noscript {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/******* Delete Classification Confirmation Styles ***************/
 
+/* Delete Confirmation Container */
+.delete-confirm-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeInUp 0.5s ease-in-out;
+}
+
+/* Confirmation Title */
+.delete-confirm-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #dc3545; /* Red warning color */
+  margin-bottom: 20px;
+}
+
+/* Confirmation Message */
+.delete-confirm-container p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Danger Alert Box */
+.delete-alert {
+  background-color: #fff3f3; /* Light red background */
+  color: #721c24; /* Darker red for text */
+  padding: 12px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Delete Confirmation Buttons */
+.delete-confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Delete Button */
+.confirm-delete-btn {
+  background-color: #dc3545; /* Red for danger */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.confirm-delete-btn:hover {
+  background-color: #c82333; /* Darker red */
+  transform: translateY(-2px);
+}
+
+.cancel-delete-btn {
+  display: inline-block; /* Makes it inline with proper padding */
+  max-width: 200px; /* Set a max width for desktop */
+  width: auto; /* Prevents it from stretching full width */
+  text-align: center;
+  margin-top: 15px; /* Adds spacing from the delete button */
+  padding: 12px;
+  font-size: 16px;
+  background-color: #6c757d; /* Gray */
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.cancel-delete-btn:hover {
+  background-color: #5a6268;
+}
 
 /* 🔹 Animations */
 @keyframes fadeInUp {
@@ -1879,13 +1962,29 @@ noscript {
     font-size: 14px;
     padding: 10px;
   }
-}
 
+  .delete-confirm-container {
+    width: 90%;
+    padding: 20px;
+  }
 
+  .delete-confirm-buttons {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+  }
 
+  .confirm-delete-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 14px;
+  }
 
-/* 🔹 Responsive Adjustments */
-@media (max-width: 600px) {
+  .cancel-delete-btn {
+    width: 100%;
+    max-width: none; /* Overrides the desktop max-width */
+  }
+
   ul.messages {
     font-size: 14px;
     padding: 10px;

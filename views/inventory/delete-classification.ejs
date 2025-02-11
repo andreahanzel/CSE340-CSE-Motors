@@ -11,7 +11,8 @@
         </ul>
     <% } %>
 
-    <form action="/inv/delete-classification" method="POST" class="delete-classification-form">
+    <!-- Form now redirects to the confirmation page instead of deleting immediately -->
+    <form action="/inv/delete-classification-confirm" method="GET" class="delete-classification-form">
         <p>Choose a classification to delete:</p>
         <div class="form-group">
             <label for="classification_id">Classification:</label>
@@ -24,6 +25,6 @@
                 <% }) %>
             </select>
         </div>
-        <button type="submit" class="submit-button">Delete Classification</button>
+        <button type="submit" class="submit-button">Continue</button>
     </form>
 </div>

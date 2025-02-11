@@ -1,0 +1,20 @@
+<div class="container delete-confirm-container">
+    <h2>Confirm Deletion</h2>
+
+    <% if (classification) { %>
+        <p>Are you sure you want to delete the classification "<strong><%= classification.classification_name %></strong>"?</p>
+        <p class="delete-alert">This action <strong>cannot be undone</strong>.</p>
+
+        <form action="/inv/delete-classification" method="POST">
+            <input type="hidden" name="classification_id" value="<%= classification.classification_id %>">
+            <button type="submit" class="confirm-delete-btn">Yes, Delete</button>
+        </form>
+        
+        <!-- Move the cancel button OUTSIDE the form -->
+        <a href="/inv/management" class="cancel-delete-btn">Cancel</a>
+        
+    <% } else { %>
+        <p class="error-message">Classification not found.</p>
+        <a href="/inv/management" class="btn btn-primary">Back to Management</a>
+    <% } %>
+</div>

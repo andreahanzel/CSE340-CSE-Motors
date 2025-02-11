@@ -354,5 +354,37 @@ invCont.deleteInventoryItem = async function (req, res, next) {
     }
 }
 
+/* ***************************
+ * Serve Delete Confirmation Page ✅
+ * ************************** */
+invCont.confirmDeleteClassification = async function (req, res, next) {
+    try {
+        const classification_id = parseInt(req.query.classification_id); // Get ID from URL query
+
+        // Fetch classification details
+        const classifications = await invModel.getClassifications();
+        const classification = classifications.rows.find(c => c.classification_id === classification_id);
+
+        if (!classification) {
+            req.flash("notice", "Classification not found.");
+            return res.redirect("/inv/management");
+        }
+
+        let nav = await utilities.getNav();
+        res.render("inventory/delete-classification-confirm", { 
+            title: "Confirm Deletion", 
+            nav, 
+            classification 
+        });
+
+    } catch (error) {
+        console.error("Error serving delete confirmation:", error);
+        req.flash("notice", "Error loading delete confirmation page.");
+        res.redirect("/inv/management");
+    }
+};
+
+
+
 
 module.exports = invCont; // Export the controller functions
